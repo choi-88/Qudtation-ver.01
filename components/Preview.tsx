@@ -111,7 +111,7 @@ export const Preview: React.FC<PreviewProps> = ({ state, type }) => {
                 <td className="py-2 px-2 text-right font-bold">₩{(item.unitPrice * item.quantity).toLocaleString()}</td>
               </tr>
             ))}
-            {Array.from({ length: Math.max(0, 15 - items.length) }).map((_, i) => (
+            {Array.from({ length: Math.max(0, 8 - items.length) }).map((_, i) => (
               <tr key={`empty-${i}`} className="border-b border-black/20">
                 <td className="py-4 border-r border-black/20"></td>
                 <td className="py-4 border-r border-black/20"></td>
@@ -242,7 +242,7 @@ export const Preview: React.FC<PreviewProps> = ({ state, type }) => {
               <td className="border border-black py-2 px-1">{item.note}</td>
             </tr>
           ))}
-          {Array.from({ length: Math.max(0, 18 - items.length) }).map((_, i) => (
+          {Array.from({ length: Math.max(0, 8 - items.length) }).map((_, i) => (
             <tr key={i} className="border-b border-black">
               <td className="border border-black py-4"></td>
               <td className="border border-black py-4"></td>
