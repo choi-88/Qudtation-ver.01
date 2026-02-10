@@ -56,36 +56,44 @@
         }
 
         @media print {
-            /* 1. 화면 전용 요소(.no-print)만 숨김 */
-            .no-print {
-                display: none !important;
-            }
-
-            /* 2. 인쇄 전용 컨테이너를 보이게 함 */
-            .print-only {
-                display: block !important;
-                visibility: visible !important;
-                position: absolute !important;
-                left: 0 !important;
-                top: 0 !important;
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            /* 3. A4 규격 및 배경색 강제 적용 */
-            @page {
-                size: A4;
-                margin: 0;
-            }
-
-            body {
-                background: white !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
+           /* ✅ [추가] 2페이지 빈 종이 출력 방지 핵심 코드 */
+        html, body {
+            height: auto !important;
+            overflow: hidden !important; /* 내용이 미세하게 넘쳐도 2페이지 생성을 강제로 막음 */
+            margin: 0 !important;
+            padding: 0 !important;
         }
-    </style>
+
+        /* 1. 화면 전용 요소(.no-print)만 숨김 */
+        .no-print {
+            display: none !important;
+        }
+
+        /* 2. 인쇄 전용 컨테이너를 보이게 함 */
+        .print-only {
+            display: block !important;
+            visibility: visible !important;
+            position: absolute !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* 3. A4 규격 및 배경색 강제 적용 */
+        @page {
+            size: A4;
+            margin: 0; /* 여백 때문에 밀리는 현상 방지 */
+        }
+
+        body {
+            background: white !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+    }
+</style>
 <script type="importmap">
 {
   "imports": {
