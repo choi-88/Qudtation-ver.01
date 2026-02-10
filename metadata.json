@@ -1,0 +1,7 @@
+{
+  "name": "견적서 발급 프로그램 2.0",
+  "description": "A comprehensive web application for creating and managing company quotations with automated OCR for business registration certificates, profile management, and multiple template supports.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

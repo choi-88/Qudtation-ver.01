@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Quotation System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        /* 화면에서는 숨기고 인쇄 시에만 보일 요소 */
+        .print-only {
+            display: none;
+        }
+
+        /* 스크롤바 디자인 */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        @media print {
+            /* 1. 화면 전용 요소(.no-print)만 숨김 */
+            .no-print {
+                display: none !important;
+            }
+
+            /* 2. 인쇄 전용 컨테이너를 보이게 함 */
+            .print-only {
+                display: block !important;
+                visibility: visible !important;
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* 3. A4 규격 및 배경색 강제 적용 */
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            body {
+                background: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "xlsx": "https://esm.sh/xlsx@0.18.5"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- ========================================================= -->
+    <!-- 모든 HTML 내용이 끝난 후, <script type="module" src="/index.tsx"></script>
+</body> 태그 바로 위에 삽입 -->
+    <!-- ========================================================= -->
+    <script>
+        // 이 스크립트 블록은 PDF/인쇄 버튼만을 위한 것입니다.
+        window.addEventListener('load', function() {
+            console.log("페이지 로드 완료. 인쇄 버튼 연결을 시도합니다.");
+
+            // DOM이 리액트에 의해 생성될 때까지 약간의 간격을 두고 확인하는 로직 추가 (안전장치)
+            const checkButtonInterval = setInterval(function() {
+                const printButton = document.getElementById('print-pdf-button');
+
+                if (printButton) {
+                    console.log("성공: 'print-pdf-button' 버튼을 찾았습니다. 클릭 이벤트를 추가합니다.");
+                    
+                    printButton.addEventListener('click', function() {
+                        console.log("버튼 클릭 감지! 인쇄 창을 호출합니다.");
+                        window.print();
+                    });
+                    
+                    // 버튼을 찾았으므로 인터벌 종료
+                    clearInterval(checkButtonInterval);
+                }
+            }, 500); // 0.5초마다 버튼 생성 여부 확인
+
+            // 10초 후에도 못 찾으면 종료 (무한 루프 방지)
+            setTimeout(function() {
+                clearInterval(checkButtonInterval);
+            }, 10000);
+        });
+    </script>
+</body>
+</html>
